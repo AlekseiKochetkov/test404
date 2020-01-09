@@ -1,0 +1,31 @@
+{
+  "name": "Test-404",
+  "description": "Test application",
+  "type": "project",
+  "require": {
+    "php": "^5.1 || ^7.0",
+    "zendframework/zend-component-installer": "^1.0 || ^2.1",
+    "zendframework/zend-mvc": "^3.1.1",
+    "zfcampus/zf-development-mode": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Application\\": "module/Application/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ApplicationTest\\": "module/Application/test/"
+    }
+  },
+  "scripts": {
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "post-create-project-cmd": [
+      "@development-enable",
+      "php bin/update-gitignore.php"
+    ],
+    "serve": "php -S 0.0.0.0:8080 -t public",
+    "test": "phpunit"
+  }
+}

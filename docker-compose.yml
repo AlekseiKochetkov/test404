@@ -1,0 +1,48 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: test404-mysql
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=test404
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - "10103:3306"
+    networks:
+      net404:
+        ipv4_address: 172.16.0.3
+  webserver:
+    build: .
+    container_name: test404-server
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www
+    networks:
+      net404:
+        ipv4_address: 172.16.0.2
+
+  rabbit:
+    image: rabbitmq:3
+    container_name: test404-rabbit
+    hostname: rabbit404
+    networks:
+      net404:
+        ipv4_address: 172.16.0.5
+
+
+networks:
+  net404:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.16.0.0/28"
