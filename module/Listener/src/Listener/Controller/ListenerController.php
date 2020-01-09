@@ -5,6 +5,7 @@ namespace Listener\Controller;
 use Listener\Service\ListenerServiceInterface;
 use Listener\Service\ValidatorServiceInterface;
 use Zend\Mvc\Controller\AbstractRestfulController;
+use Zend\Validator\Date;
 use Zend\View\Model\JsonModel;
 use Exception;
 
@@ -26,7 +27,6 @@ class ListenerController extends AbstractRestfulController
     ) {
         $this->listenerService  = $listenerService;
         $this->validatorService = $validatorService;
-
     }
 
     public function indexAction()
@@ -42,18 +42,20 @@ class ListenerController extends AbstractRestfulController
             if ($request->isPost()) {
                 $data = $this->processBodyContent($request);
             }
+            $data = $this->listenerService->prepareData($data);
             if (!$this->validatorService->validateRequestData((array)$data)) {
                 return new JsonModel(["No data in request", (array)$data]);
             }
 
-            return new JsonModel
-            ([
+            //ToDo: fields validation here(based on messanger?)
+            $messages = $this->listenerService->generateMessages($data);
+
+            return new JsonModel([
                 'test' => 'ok',
                 'data' => (array)$data,
                 array_key_exists('text', $data),
                 $this->listenerService->sendMessage()
             ]);
-
         } catch (Exception $e) {
             return new JsonModel([
                 'result'  => 'Message sending failed',

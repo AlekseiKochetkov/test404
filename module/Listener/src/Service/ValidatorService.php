@@ -18,9 +18,6 @@ class ValidatorService implements ValidatorServiceInterface
         if($this->array_keys_diff($this->requiredFields,$data)){
             return false;
         };
-        if(!is_array($data['destination'])){
-            $data['destination'] = [$data['destination']];
-        }
         foreach ($data['destination'] as $key=>$destination){
             if($this->array_keys_diff($this->requiredDestinationFields,$destination)){
                 //idea: split validation levels
