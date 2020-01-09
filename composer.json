@@ -1,5 +1,5 @@
 {
-  "name": "Test-404",
+  "name": "ak/test404",
   "description": "Test application",
   "type": "project",
   "require": {
@@ -10,7 +10,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Application\\": "module/Application/src/"
+      "Application\\": "module/Application/src/",
+      "Listener\\": "module/Listener/src/"
     }
   },
   "autoload-dev": {
