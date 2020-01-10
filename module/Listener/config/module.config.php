@@ -1,6 +1,7 @@
 <?php
 
 use Listener\Controller\ListenerController;
+use Listener\Controller\ConsoleSenderController;
 
 return [
     'router' => [
@@ -18,7 +19,23 @@ return [
             ],
         ]
     ],
-
+    'console' => [
+        'router' => [
+            'routes' => [
+                'message-sender' => [
+                    'type'    => 'simple',
+                    'options' => [
+                        'route' => 'message-sender',
+                        'defaults' => [
+                            'controller'    => ConsoleSenderController::class,
+                            '__NAMESPACE__' => 'Listener\Controller',
+                            'action'        => 'sender'
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
     'view_manager' => [
         'template_path_stack' => [
             __DIR__ . '/../view',

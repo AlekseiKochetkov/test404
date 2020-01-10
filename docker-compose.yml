@@ -21,7 +21,7 @@ services:
       net404:
         ipv4_address: 172.16.0.3
   webserver:
-    build: .
+    build: ./setup/server
     container_name: test404-server
     ports:
       - "8080:80"
@@ -32,9 +32,12 @@ services:
         ipv4_address: 172.16.0.2
 
   rabbit:
-    image: rabbitmq:3
+    build: ./setup/server
     container_name: test404-rabbit
     hostname: rabbit404
+    ports:
+      - "15672:15672"
+      - "5672:5672"
     networks:
       net404:
         ipv4_address: 172.16.0.5
