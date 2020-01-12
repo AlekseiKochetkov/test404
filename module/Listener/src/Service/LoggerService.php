@@ -7,6 +7,7 @@ namespace Listener\Service;
 use Listener\Model\Message;
 use Listener\Model\MessageLog;
 use Listener\Persistence\LogRepositoryInterface;
+use Zend\Db\Adapter\Driver\Pdo\Result;
 
 class LoggerService implements LoggerServiceInterface
 {
@@ -21,13 +22,21 @@ class LoggerService implements LoggerServiceInterface
 
     public function checkLog(Message $message): bool
     {
+        /**
+         * @var Result $result
+         */
         $result = $this->logRepository->fetch(
             [
-            'text'=>$message->getText(),
-            'identifier'=>$message->getIdentifier()
+            'text'       => $message->getText(),
+            'identifier' => $message->getIdentifier(),
+            'status'     => 0
             ]
         );
-        return !empty($result);
+        var_dump($result->count());
+        if($result->count()>0){
+            return false;
+        }
+        return true;
     }
 
     public function log(MessageLog $log)

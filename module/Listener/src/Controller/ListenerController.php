@@ -59,6 +59,10 @@ class ListenerController extends AbstractRestfulController
             $messages = $this->listenerService->generateMessages($data);
 
             foreach ($messages as $key => $message) {
+                if (!$this->loggerService->checkLog($message)) {
+                    unset($messages[$key]);
+                    continue;
+                }
                 $log = new MessageLog($message);
                 $this->loggerService->log($log);
                 if (!$this->validatorService->validateMessageFields($message)) {
@@ -72,7 +76,6 @@ class ListenerController extends AbstractRestfulController
             foreach ($messages as $key => $message) {
                 $log = new MessageLog($message, 3);
                 $this->loggerService->log($log);
-
             }
             return new JsonModel();
         } catch (Exception $e) {
