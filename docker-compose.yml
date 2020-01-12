@@ -5,7 +5,7 @@ version: "3.1"
 services:
 
   mysql:
-    image: mysql:8.0
+    image: mysql:5.6
     container_name: test404-mysql
     working_dir: /var/www
     volumes:
@@ -32,7 +32,7 @@ services:
         ipv4_address: 172.16.0.2
 
   rabbit:
-    build: ./setup/server
+    build: ./setup/rabbitmq
     container_name: test404-rabbit
     hostname: rabbit404
     ports:

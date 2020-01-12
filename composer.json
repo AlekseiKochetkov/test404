@@ -8,7 +8,9 @@
     "zendframework/zend-mvc": "^3.1.1",
     "zfcampus/zf-development-mode": "^3.2",
     "php-amqplib/php-amqplib": "^2.11",
-    "zendframework/zend-mvc-console": "^1.2"
+    "zendframework/zend-mvc-console": "^1.2",
+    "robmorgan/phinx": "^0.11.4",
+    "zendframework/zend-db": "^2.11"
   },
   "autoload": {
     "psr-4": {

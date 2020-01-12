@@ -3,6 +3,7 @@
 namespace Listener\Controller;
 
 use Listener\Service\ListenerServiceInterface;
+use Listener\Service\MessangerServiceInterface;
 use Listener\Service\ValidatorServiceInterface;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
@@ -49,6 +50,12 @@ class ListenerController extends AbstractRestfulController
             //ToDo: fields validation here(based on messanger?)
             $messages = $this->listenerService->generateMessages($data);
 
+            foreach ($messages as $key=>$message){
+                if(!$this->validatorService->validateMessageFields($message)){
+                    echo "Message wrong";
+                    unset($messages[$key]);
+                }
+            }
             //ToDo: send messages
             $this->listenerService->sendMessages($messages);
             return new JsonModel();

@@ -4,6 +4,8 @@
 namespace Listener\Service;
 
 
+use Listener\Model\Message;
+
 interface ValidatorServiceInterface
 {
     /**
@@ -12,5 +14,7 @@ interface ValidatorServiceInterface
      * @return bool
      */
     public function validateRequestData(array $data):bool;
+
+    public  function validateMessageFields(Message $message):bool;
 
 }

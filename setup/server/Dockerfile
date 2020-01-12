@@ -4,6 +4,7 @@ RUN apt-get update \
  && apt-get install -y git zlib1g-dev \
  && docker-php-ext-install zip \
  && docker-php-ext-install sockets \
+ && docker-php-ext-install pdo_mysql \
  && pecl install xdebug \
  && docker-php-ext-enable xdebug \
  && a2enmod rewrite \
