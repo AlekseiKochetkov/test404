@@ -3,7 +3,6 @@
 
 namespace Listener\Model;
 
-
 class MessageLog extends Message
 {
     protected $id;
@@ -15,11 +14,12 @@ class MessageLog extends Message
     /**
      * MessageLog constructor.
      */
-    public function __construct(Message $message)
+    public function __construct(Message $message, int $status = 1)
     {
-        $this->setText($message->getText());
-        $this->setIdentifier($message->getIdentifier());
-        $this->setMessanger($message->getMessanger());
+        $this->text       = $message->getText();
+        $this->identifier = $message->getIdentifier();
+        $this->messanger  = $message->getMessanger();
+        $this->status     = $status;
     }
 
 
@@ -70,6 +70,4 @@ class MessageLog extends Message
     {
         $this->status = $status;
     }
-
-
 }

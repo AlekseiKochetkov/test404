@@ -6,6 +6,8 @@ namespace Listener\Controller;
 use Exception;
 use Listener\Factory\MessangerServiceFactoryInterface;
 use Listener\Model\Message;
+use Listener\Model\MessageLog;
+use Listener\Service\LoggerServiceInterface;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -18,30 +20,50 @@ class ConsoleSenderController extends AbstractActionController
     const MAX_ATTEMPTS = 4;
 
     protected $messangerFactory;
-    public function __construct(MessangerServiceFactoryInterface $messangerFactory)
-    {
+
+    protected $loggerService;
+
+    public function __construct(
+        MessangerServiceFactoryInterface $messangerFactory,
+        LoggerServiceInterface $loggerService
+    ) {
         $this->messangerFactory = $messangerFactory;
+        $this->loggerService    = $loggerService;
     }
 
     public function shutdown(AMQPChannel $channel, AMQPConnection $connection)
     {
-        echo 'Bye'. PHP_EOL;
+        echo 'Bye' . PHP_EOL;
         $channel->close();
         $connection->close();
     }
+
     public function messageSendCallback(AMQPMessage $msg)
     {
         try {
             $data = json_decode($msg->body, true);
             var_dump($data);
-            $message= new Message($data['messanger'], $data['identifier'], $data['text']);
-            echo ' [x] Received  message for' . $message->getIdentifier() . ' via '.$message->getMessanger().' (try: ' . $msg->get('priority') . ')' . PHP_EOL;
+            $message = new Message($data['messanger'], $data['identifier'],
+                $data['text']);
+            echo ' [x] Received  message for' . $message->getIdentifier()
+                . ' via ' . $message->getMessanger() . ' (try: '
+                . $msg->get('priority') . ')' . PHP_EOL;
             if ($msg->get('priority') > self::MAX_ATTEMPTS) {
                 $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
-                echo ' [!] Maximum retries reached. Message is not sent' . PHP_EOL;
+                echo ' [!] Maximum retries reached. Message is not sent'
+                    . PHP_EOL;
             } else {
-                $messageService = $this->messangerFactory->create('Listener\Service\\'.$message->getMessanger().'Service');
-                $messageService->send($message);
+                $messageService
+                     = $this->messangerFactory->create('Listener\Service\\'
+                    . $message->getMessanger() . 'Service');
+                $log = new MessageLog($message);
+                if ($messageService->send($message)) {
+                    $log->setStatus(0);
+                    $this->loggerService->log($log);
+                } else {
+                    $log->setStatus(4);
+                    $this->loggerService->log($log);
+                };
                 $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
                 echo ' [+] Done' . PHP_EOL . PHP_EOL;
             }
@@ -51,12 +73,12 @@ class ConsoleSenderController extends AbstractActionController
             $new_msg = new AMQPMessage(
                 $msg->body,
                 array(
-                'delivery_mode' => 1,
-                'priority'      => 1 + $msg->get('priority'),
-                'timestamp'     => time(),
-                'expiration'    => strval(
-                    1000 * (strtotime('+1 day midnight') - time() - 1)
-                )
+                    'delivery_mode' => 1,
+                    'priority'      => 1 + $msg->get('priority'),
+                    'timestamp'     => time(),
+                    'expiration'    => strval(
+                        1000 * (strtotime('+1 day midnight') - time() - 1)
+                    )
                 )
             );
             $channel->basic_publish($new_msg, '', $queue);
@@ -65,6 +87,7 @@ class ConsoleSenderController extends AbstractActionController
             echo ' [!] ERROR: ' . $ex->getMessage() . PHP_EOL . PHP_EOL;
         }
     }
+
     public function senderAction()
     {
         $request = $this->getRequest();
@@ -86,13 +109,12 @@ class ConsoleSenderController extends AbstractActionController
         echo ' [*] Waiting for messages. To exit press CTRL+C' . PHP_EOL;
 
 
-
         $channel->basic_qos(null, 1, null);
-        $channel->basic_consume($queue, '', false, false, false, false, [$this,'messageSendCallback']);
+        $channel->basic_consume($queue, '', false, false, false, false,
+            [$this, 'messageSendCallback']);
 
 
-
-        register_shutdown_function([$this,'shutdown'], $channel, $connection);
+        register_shutdown_function([$this, 'shutdown'], $channel, $connection);
 
         while (count($channel->callbacks)) {
             $channel->wait();
