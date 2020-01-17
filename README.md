@@ -15,6 +15,7 @@ ToDo: tests
 To use API: 
 * call to localhost:8080/send via POST method.
 * it requires data in json format and structure
+```json
 {
 	"text":"some message",
 	"destination":[{
@@ -25,7 +26,7 @@ To use API:
 		"messanger":"Viber"
 	}]
 }
-
+```
 For the development Zend Framework was used. 
 The reason for it was that I used to it and review\studying different would take too much time.
 RabbitMQ was used to achieve asynchronysity so message resending would not affect other requests.
