@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Listener\Factory;
+namespace Test404\Listener\Factory;
 
 
-use Listener\Service\MessangerServiceInterface;
+use Test404\Listener\Service\MessangerServiceInterface;
 
 interface MessangerServiceFactoryInterface
 {

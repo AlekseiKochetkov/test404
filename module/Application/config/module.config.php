@@ -1,6 +1,6 @@
 <?php
 
-namespace Application;
+namespace Test404\Application;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;

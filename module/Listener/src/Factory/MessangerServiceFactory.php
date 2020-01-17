@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Listener\Factory;
+namespace Test404\Listener\Factory;
 
 
 use Exception;
-use Listener\Service\MessangerServiceInterface;
+use Test404\Listener\Service\MessangerServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 
 class MessangerServiceFactory implements MessangerServiceFactoryInterface

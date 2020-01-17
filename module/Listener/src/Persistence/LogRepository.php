@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Listener\Persistence;
+namespace Test404\Listener\Persistence;
 
 
-use Listener\Model\MessageLog;
+use Test404\Listener\Model\MessageLog;
 
 class LogRepository extends Repository implements LogRepositoryInterface
 {

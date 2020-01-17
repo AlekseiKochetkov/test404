@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Listener\Service;
+namespace Test404\Listener\Service;
 
 
-use Listener\Model\Message;
-use Listener\Model\MessageLog;
-use Listener\Persistence\LogRepositoryInterface;
+use Test404\Listener\Model\Message;
+use Test404\Listener\Model\MessageLog;
+use Test404\Listener\Persistence\LogRepositoryInterface;
 use Zend\Db\Adapter\Driver\Pdo\Result;
 
 class LoggerService implements LoggerServiceInterface
@@ -32,7 +32,6 @@ class LoggerService implements LoggerServiceInterface
             'status'     => 0
             ]
         );
-        var_dump($result->count());
         if($result->count()>0){
             return false;
         }

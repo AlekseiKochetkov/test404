@@ -1,11 +1,11 @@
 <?php
 
-namespace Listener\Controller;
+namespace Test404\Listener\Controller;
 
-use Listener\Model\MessageLog;
-use Listener\Service\ListenerServiceInterface;
-use Listener\Service\LoggerServiceInterface;
-use Listener\Service\ValidatorServiceInterface;
+use Test404\Listener\Model\MessageLog;
+use Test404\Listener\Service\ListenerServiceInterface;
+use Test404\Listener\Service\LoggerServiceInterface;
+use Test404\Listener\Service\ValidatorServiceInterface;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Exception;

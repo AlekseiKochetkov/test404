@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Listener\Model;
+namespace Test404\Listener\Model;
 
 
 /**

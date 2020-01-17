@@ -14,13 +14,13 @@
   },
   "autoload": {
     "psr-4": {
-      "Application\\": "module/Application/src/",
-      "Listener\\": "module/Listener/src/"
+      "Test404\\Application\\": "module/Application/src/",
+      "Test404\\Listener\\": "module/Listener/src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "ApplicationTest\\": "module/Application/test/"
+      "Test404\\ApplicationTest\\": "module/Application/test/"
     }
   },
   "scripts": {

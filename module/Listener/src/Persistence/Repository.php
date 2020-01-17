@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Listener\Persistence;
+namespace Test404\Listener\Persistence;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Sql\Sql;

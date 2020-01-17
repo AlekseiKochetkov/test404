@@ -15,6 +15,6 @@ return [
     'Zend\Mvc\Console',
     'Zend\Router',
     'Zend\Validator',
-    'Application',
-    'Listener'
+    'Test404\Application',
+    'Test404\Listener'
 ];

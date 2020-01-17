@@ -1,23 +1,23 @@
 <?php
 
-namespace Listener;
+namespace Test404\Listener;
 
-use Listener\Controller\ConsoleSenderController;
-use Listener\Controller\ListenerController;
-use Listener\Factory\MessangerServiceFactory;
-use Listener\Factory\MessangerServiceFactoryInterface;
-use Listener\Persistence\LogRepository;
-use Listener\Persistence\LogRepositoryInterface;
-use Listener\Persistence\Repository;
-use Listener\Persistence\RepositoryInterface;
-use Listener\Service\ListenerService;
-use Listener\Service\ListenerServiceInterface;
-use Listener\Service\LoggerService;
-use Listener\Service\LoggerServiceInterface;
-use Listener\Service\TelegramService;
-use Listener\Service\ValidatorService;
-use Listener\Service\ValidatorServiceInterface;
-use Listener\Service\ViberService;
+use Test404\Listener\Controller\ConsoleSenderController;
+use Test404\Listener\Controller\ListenerController;
+use Test404\Listener\Factory\MessangerServiceFactory;
+use Test404\Listener\Factory\MessangerServiceFactoryInterface;
+use Test404\Listener\Persistence\LogRepository;
+use Test404\Listener\Persistence\LogRepositoryInterface;
+use Test404\Listener\Persistence\Repository;
+use Test404\Listener\Persistence\RepositoryInterface;
+use Test404\Listener\Service\ListenerService;
+use Test404\Listener\Service\ListenerServiceInterface;
+use Test404\Listener\Service\LoggerService;
+use Test404\Listener\Service\LoggerServiceInterface;
+use Test404\Listener\Service\TelegramService;
+use Test404\Listener\Service\ValidatorService;
+use Test404\Listener\Service\ValidatorServiceInterface;
+use Test404\Listener\Service\ViberService;
 use Zend\ServiceManager\ServiceManager;
 
 class Module
@@ -37,7 +37,7 @@ class Module
         return [
             'Zend\Loader\StandardAutoloader' => [
                 'namespaces' => [
-                    // Autoload all classes from namespace 'ListenerController' from '/module/ListenerController/src/ListenerController'
+                    // Autoload all classes from namespace Test404\'ListenerController' from '/module/ListenerController/src/ListenerController'
                     __NAMESPACE__ => __DIR__ . '/src/Listener',
                 ]
             ]

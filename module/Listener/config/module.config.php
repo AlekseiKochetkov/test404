@@ -1,7 +1,7 @@
 <?php
 
-use Listener\Controller\ListenerController;
-use Listener\Controller\ConsoleSenderController;
+use Test404\Listener\Controller\ListenerController;
+use Test404\Listener\Controller\ConsoleSenderController;
 
 return [
     'router' => [
@@ -9,10 +9,10 @@ return [
             'listener' => [
                 'type'    => 'Segment',
                 'options' => [
-                    'route'       => '/listener[/:action]',
+                    'route'       => '/[:action]',
                     'defaults'    => [
                         'controller' => ListenerController::class,
-                        '__NAMESPACE__' => 'Listener\Controller',
+                        '__NAMESPACE__' => 'Test404\Listener\Controller',
                         'action'     => 'index',
                     ],
                 ],
@@ -28,7 +28,7 @@ return [
                         'route' => 'message-sender',
                         'defaults' => [
                             'controller'    => ConsoleSenderController::class,
-                            '__NAMESPACE__' => 'Listener\Controller',
+                            '__NAMESPACE__' => 'Test404\Listener\Controller',
                             'action'        => 'sender'
                         ],
                     ],

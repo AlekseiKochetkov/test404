@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Listener\Persistence;
+namespace Test404\Listener\Persistence;
 
 
 interface RepositoryInterface

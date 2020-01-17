@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Listener\Controller;
+namespace Test404\Listener\Controller;
 
 use Exception;
-use Listener\Factory\MessangerServiceFactoryInterface;
-use Listener\Model\Message;
-use Listener\Model\MessageLog;
-use Listener\Service\LoggerServiceInterface;
+use Test404\Listener\Factory\MessangerServiceFactoryInterface;
+use Test404\Listener\Model\Message;
+use Test404\Listener\Model\MessageLog;
+use Test404\Listener\Service\LoggerServiceInterface;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -42,7 +42,6 @@ class ConsoleSenderController extends AbstractActionController
     {
         try {
             $data = json_decode($msg->body, true);
-            var_dump($data);
             $message = new Message($data['messanger'], $data['identifier'],
                 $data['text']);
             echo ' [x] Received  message for' . $message->getIdentifier()
@@ -54,7 +53,7 @@ class ConsoleSenderController extends AbstractActionController
                     . PHP_EOL;
             } else {
                 $messageService
-                     = $this->messangerFactory->create('Listener\Service\\'
+                     = $this->messangerFactory->create('Test404\Listener\Service\\'
                     . $message->getMessanger() . 'Service');
                 $log = new MessageLog($message);
                 if ($messageService->send($message)) {

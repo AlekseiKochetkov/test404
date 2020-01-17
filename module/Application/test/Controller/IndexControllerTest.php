@@ -5,9 +5,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ApplicationTest\Controller;
+namespace Test404\ApplicationTest\Controller;
 
-use Application\Controller\IndexController;
+use Test404\Application\Controller\IndexController;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Test\PHPUnit\Controller\AbstractHttpControllerTestCase;
 

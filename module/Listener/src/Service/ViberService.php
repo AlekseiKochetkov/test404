@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Listener\Service;
+namespace Test404\Listener\Service;
 
 
-use Listener\Model\Message;
+use Test404\Listener\Model\Message;
 
 class ViberService implements MessangerServiceInterface
 {

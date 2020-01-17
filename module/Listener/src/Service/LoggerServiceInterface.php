@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Listener\Service;
+namespace Test404\Listener\Service;
 
 
-use Listener\Model\Message;
-use Listener\Model\MessageLog;
+use Test404\Listener\Model\Message;
+use Test404\Listener\Model\MessageLog;
 
 interface LoggerServiceInterface
 {
